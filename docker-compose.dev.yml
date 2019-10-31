@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  backend_nest:
+    environment:
+      - NODE_ENV=dev
+    ports:
+      - 4000:4000
+    restart: unless-stopped
+    command: sh -c "yarn start:dev"
+    volumes:
+      - ./backend-nest:/backend-nest
+      - /backend-nest/node_modules
+      - /backend-nest/dist
