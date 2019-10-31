@@ -10,5 +10,5 @@ export const databaseOptions: TypeOrmModuleOptions = {
     password: env('POSTGRES_PASSWORD'),
     database: env('POSTGRES_DB'),
     synchronize: true,
-    entities: [__dirname + '/**/*.entity{.ts,.js}']
+    entities: ['/backend-nest/dist/' + '/**/*.entity{.ts,.js}']
 }
