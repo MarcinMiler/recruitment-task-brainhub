@@ -4,6 +4,8 @@ services:
   backend_nest:
     environment:
       - NODE_ENV=dev
+    env_file:
+      - dev.env
     ports:
       - 4000:4000
     restart: unless-stopped
@@ -12,3 +14,6 @@ services:
       - ./backend-nest:/backend-nest
       - /backend-nest/node_modules
       - /backend-nest/dist
+
+  postgres:
+    restart: unless-stopped

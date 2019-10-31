@@ -7,3 +7,15 @@ services:
     container_name: form-backend-nest
     restart: always
     command: sh -c "yarn start:prod"
+
+  postgres:
+    image: postgres:10
+    env_file:
+      - dev.env
+    volumes:
+      - form-postgres:/var/lib/postgresql/data
+    container_name: form-postgres
+    restart: always
+
+volumes:
+  form-postgres:
