@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  backend_nest:
+    build:
+      context: ./backend-nest
+    container_name: form-backend-nest
+    restart: always
+    command: sh -c "yarn start:prod"
