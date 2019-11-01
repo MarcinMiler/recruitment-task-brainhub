@@ -12,12 +12,8 @@ export class EventService {
     ) {}
 
     async newEvent(event: NewEventDto) {
-        try {
-            const newEvent = this.eventRepo.create(event)
-
-            await this.eventRepo.save(newEvent)
-        } catch (err) {
+        return this.eventRepo.save(event).catch(() => {
             throw new BadRequestException('Something went wrong')
-        }
+        })
     }
 }
