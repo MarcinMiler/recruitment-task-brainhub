@@ -15,5 +15,14 @@ services:
       - /backend-nest/node_modules
       - /backend-nest/dist
 
+  frontend:
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    command: sh -c "yarn start"
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+
   postgres:
     restart: unless-stopped
