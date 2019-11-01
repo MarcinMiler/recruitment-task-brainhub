@@ -1,6 +1,13 @@
 version: "3.7"
 
 services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: form-frontend
+    restart: always
+    command: sh -c "yarn start"
+
   backend_nest:
     build:
       context: ./backend-nest
