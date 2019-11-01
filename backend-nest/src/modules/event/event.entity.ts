@@ -15,5 +15,5 @@ export class Event {
     email: string
 
     @Column({ type: 'date' })
-    date: Date
+    date: string
 }
