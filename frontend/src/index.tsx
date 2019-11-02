@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import { store } from 'config/store'
+import { Home } from 'pages/home'
 import * as serviceWorker from './serviceWorker'
+import { GlobalStyles } from 'theme/GlobalStyles'
 
 ReactDOM.render(
-    <Provider store={store}></Provider>,
+    <Provider store={store}>
+        <GlobalStyles />
+        <Home />
+    </Provider>,
     document.getElementById('root')
 )
 
