@@ -1,15 +1,16 @@
 import * as React from 'react'
 
-import { StyledInput, Label } from './style'
+import { Wrapper, StyledInput, Label, ErrorMessage } from './style'
 
 interface Props {
     label: string
-    type?: string
+    errorMsg: string | null
 }
 
-export const Input: React.FC<Props> = ({ label, ...props }) => (
-    <>
+export const Input: React.FC<Props> = ({ label, errorMsg, ...props }) => (
+    <Wrapper>
         <Label>{label}</Label>
-        <StyledInput {...props} />
-    </>
+        <StyledInput error={!!errorMsg} {...props} />
+        <ErrorMessage>{errorMsg}</ErrorMessage>
+    </Wrapper>
 )
