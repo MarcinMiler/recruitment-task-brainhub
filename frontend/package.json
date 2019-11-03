@@ -7,6 +7,7 @@
         "@types/node": "12.12.3",
         "@types/react": "16.9.11",
         "@types/react-dom": "16.9.3",
+        "formik": "^2.0.3",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",
         "react-redux": "^7.1.1",
@@ -16,7 +17,8 @@
         "rxjs": "^6.5.3",
         "styled-components": "^4.4.1",
         "typesafe-actions": "^5.1.0-1",
-        "typescript": "3.6.4"
+        "typescript": "3.6.4",
+        "yup": "^0.27.0"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -42,6 +44,7 @@
     "devDependencies": {
         "@types/react-redux": "^7.1.5",
         "@types/styled-components": "^4.1.20",
+        "@types/yup": "^0.26.24",
         "redux-devtools-extension": "^2.13.8"
     }
 }
