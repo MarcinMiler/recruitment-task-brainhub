@@ -1,5 +1,9 @@
 import { ActionType } from 'typesafe-actions'
 
-const rootAction = {}
+import * as eventActions from 'modules/event/event.actions'
+
+const rootAction = {
+    eventActions
+}
 
 export type AppActions = ActionType<typeof rootAction>
