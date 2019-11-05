@@ -1,18 +1,18 @@
-import { from } from 'rxjs'
+import * as E from 'fp-ts/lib/Either'
+import { from, Observable, of } from 'rxjs'
+import { map, catchError, pluck } from 'rxjs/operators'
+import axios from 'axios'
 
 export class HttpService {
     constructor(private readonly apiBase: string) {}
 
-    POST<T>(path: string, body?: object) {
+    POST<R>(url: string, data?: object): Observable<E.Either<string, R>> {
         return from(
-            fetch(this.apiBase + path, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            }).then<T>(res => res.json())
+            axios.post<R>(url, { ...data }, { baseURL: this.apiBase })
+        ).pipe(
+            pluck('data'),
+            map(E.right),
+            catchError(err => of(E.left(err.message)))
         )
     }
 }
