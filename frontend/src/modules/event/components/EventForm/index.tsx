@@ -35,7 +35,7 @@ export const EventForm: React.FC<Props> = ({ newEvent }) => (
     <Formik
         initialValues={eventInitialValues}
         validationSchema={eventSchema}
-        onSubmit={newEvent}
+        onSubmit={(values, { resetForm }) => newEvent(values) && resetForm()}
     >
         <Form>
             <FormWrapper>

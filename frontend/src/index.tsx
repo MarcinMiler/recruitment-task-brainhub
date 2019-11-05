@@ -4,12 +4,14 @@ import { Provider } from 'react-redux'
 
 import { store } from 'config/store'
 import { Home } from 'pages/home'
-import * as serviceWorker from './serviceWorker'
 import { GlobalStyles } from 'theme/GlobalStyles'
+import { NotificationsContainer } from 'modules/notification/containers/Notifications'
+import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
     <Provider store={store}>
         <GlobalStyles />
+        <NotificationsContainer />
         <Home />
     </Provider>,
     document.getElementById('root')

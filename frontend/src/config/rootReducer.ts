@@ -1,3 +1,9 @@
 import { combineReducers } from 'redux'
 
-export const rootReducer = combineReducers({})
+import { notificationReducer } from 'modules/notification/notification.reducer'
+
+export const rootReducer = combineReducers({
+    notification: notificationReducer
+})
+
+export type AppState = ReturnType<typeof rootReducer>
