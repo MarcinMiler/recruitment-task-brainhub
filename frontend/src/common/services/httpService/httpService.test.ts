@@ -1,9 +1,8 @@
-import { HttpService } from './'
 import * as TypeMoq from 'typemoq'
-import { AxiosStatic } from 'axios'
 import * as E from 'fp-ts/lib/Either'
-import { of } from 'rxjs'
-import { toArray } from 'rxjs/operators'
+import { AxiosStatic } from 'axios'
+
+import { HttpService } from './'
 
 const mockAxiosResponse = (data: any) => ({
     data,

@@ -1,5 +1,6 @@
 import * as TypeMoq from 'typemoq'
 import { of, Subject } from 'rxjs'
+import { toArray } from 'rxjs/operators'
 import { ActionsObservable, StateObservable } from 'redux-observable'
 import * as E from 'fp-ts/lib/Either'
 
@@ -12,7 +13,6 @@ import {
     mockSucceedNotification,
     mockFailureNotification
 } from './mocks'
-import { toArray } from 'rxjs/operators'
 
 describe('Event epic', () => {
     let mockEventService: TypeMoq.IMock<EventService>
