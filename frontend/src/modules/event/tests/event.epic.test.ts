@@ -3,16 +3,24 @@ import { of, Subject } from 'rxjs'
 import { ActionsObservable, StateObservable } from 'redux-observable'
 import * as E from 'fp-ts/lib/Either'
 
+import { NotificationService } from 'common/services/notification'
 import { eventEpicFactory } from '../event.epic'
 import { EventService } from '../event.service'
 import * as actions from '../event.actions'
-import { mockEvent } from './mocks'
+import {
+    mockEvent,
+    mockSucceedNotification,
+    mockFailureNotification
+} from './mocks'
+import { toArray } from 'rxjs/operators'
 
 describe('Event epic', () => {
     let mockEventService: TypeMoq.IMock<EventService>
+    let mockNotificationService: TypeMoq.IMock<NotificationService>
 
     beforeEach(() => {
         mockEventService = TypeMoq.Mock.ofType<EventService>()
+        mockNotificationService = TypeMoq.Mock.ofType<NotificationService>()
     })
 
     it('should post new event', done => {
@@ -24,8 +32,18 @@ describe('Event epic', () => {
             .returns(() => of({}))
             .verifiable()
 
+        mockNotificationService
+            .setup(x =>
+                x.succeedNotification(
+                    TypeMoq.It.isValue('Successfully saved event.')
+                )
+            )
+            .returns(() => mockSucceedNotification)
+            .verifiable()
+
         const eventEpicFactoryInstance = eventEpicFactory(
-            mockEventService.object
+            mockEventService.object,
+            mockNotificationService.object
         )
 
         const action$ = of(actions.newEventAsync.request(mockEvent))
@@ -34,12 +52,18 @@ describe('Event epic', () => {
             new ActionsObservable(action$),
             mockState,
             null
-        ).subscribe(res => {
-            expect(res).toEqual(actions.newEventAsync.success())
+        )
+            .pipe(toArray())
+            .subscribe(res => {
+                expect(res).toEqual([
+                    actions.newEventAsync.success(),
+                    mockSucceedNotification
+                ])
 
-            mockEventService.verifyAll()
-            done()
-        })
+                mockEventService.verifyAll()
+                mockNotificationService.verifyAll()
+                done()
+            })
     })
 
     it('should handle error on post new event', done => {
@@ -50,8 +74,18 @@ describe('Event epic', () => {
             .returns(() => of(E.left('Something went wrong')))
             .verifiable()
 
+        mockNotificationService
+            .setup(x =>
+                x.failureNotification(
+                    TypeMoq.It.isValue('Something went wrong')
+                )
+            )
+            .returns(() => mockFailureNotification)
+            .verifiable()
+
         const eventEpicFactoryInstance = eventEpicFactory(
-            mockEventService.object
+            mockEventService.object,
+            mockNotificationService.object
         )
 
         const action$ = of(actions.newEventAsync.request(mockEvent))
@@ -60,13 +94,17 @@ describe('Event epic', () => {
             new ActionsObservable(action$),
             mockState,
             null
-        ).subscribe(res => {
-            expect(res).toEqual(
-                actions.newEventAsync.failure('Something went wrong')
-            )
+        )
+            .pipe(toArray())
+            .subscribe(res => {
+                expect(res).toEqual([
+                    actions.newEventAsync.failure('Something went wrong'),
+                    mockFailureNotification
+                ])
 
-            mockEventService.verifyAll()
-            done()
-        })
+                mockEventService.verifyAll()
+                mockNotificationService.verifyAll()
+                done()
+            })
     })
 })
