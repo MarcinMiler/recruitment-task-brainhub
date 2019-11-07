@@ -10,20 +10,24 @@ import { FormWrapper, Header } from './style'
 const form = [
     {
         name: 'firstName',
-        label: 'First name'
+        label: 'First name',
+        'data-testid': 'first-name'
     },
     {
         name: 'lastName',
-        label: 'Last name'
+        label: 'Last name',
+        'data-testid': 'last-name'
     },
     {
         name: 'email',
-        label: 'Email'
+        label: 'Email',
+        'data-testid': 'email'
     },
     {
         name: 'date',
         label: 'Date',
-        type: 'date'
+        type: 'date',
+        'data-testid': 'date'
     }
 ]
 
