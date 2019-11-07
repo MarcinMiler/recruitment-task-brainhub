@@ -41,7 +41,7 @@ export const EventForm: React.FC<Props> = ({ newEvent }) => (
         validationSchema={eventSchema}
         onSubmit={(values, { resetForm }) => newEvent(values) && resetForm()}
     >
-        <Form data-testid="form">
+        <Form>
             <FormWrapper>
                 <Header>Event Form</Header>
 
@@ -49,9 +49,7 @@ export const EventForm: React.FC<Props> = ({ newEvent }) => (
                     <Field key={item.name} {...item} component={FormikInput} />
                 ))}
 
-                <Button onClick={() => console.log('lol')} type="submit">
-                    Save
-                </Button>
+                <Button type="submit">Save</Button>
             </FormWrapper>
         </Form>
     </Formik>
